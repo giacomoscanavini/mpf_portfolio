@@ -5,12 +5,12 @@ This repo is a small research project on **Hong Kong MPF (Mandatory Provident Fu
 The question is simple (and very human):  
 > If you're in your 30s, should you just accept the default **DIS** glidepath, or can you build a *better* buy-and-hold mix from the available funds?
 
-This project uses historical unit prices (2020–2025, with optimization over 2022–2025) to compare a **DIS proxy** against a grid-searched set of long-only portfolios.
+This project uses historical unit prices (2020–2025) to compare a **DIS proxy** against a grid-searched set of long-only portfolios.
 
 **Files**
-- `fund_analysis.py`: original analysis script  
-- `mpf_results.pptx`: presentation summarizing results  
-- `fund_analysis_clean.py`: cleaned-up version of the script (same logic, clearer structure)
+- `fund_analysis.py`: analysis script, run from terminal
+- `fund_analysis_interactive.py`: analysis script, run with interactive window in VSCode
+
 
 ---
 
@@ -48,7 +48,7 @@ In this repo we use a **DIS proxy for a ~35 year-old**: **100% CAF**.
 ## What the script does
 
 ### A) Data engineering
-- Merges partial downloads per fund code (e.g. `VEEF_1.csv`, `VEEF_2.csv` → `VEEF.csv`)
+- Merges partial downloads per fund code (e.g. `VEEF_1.csv`, `VEEF_2.csv`, ... → `VEEF.csv`)
 - Sorts chronologically, drops duplicate dates
 - Filters to a configured window (`X_START..X_END`)
 - Writes one clean CSV per fund into an output folder
@@ -63,7 +63,7 @@ It also plots ROI series for DIS vs selected portfolios.
 ### C) Portfolio search (grid search over weights)
 **Goal:** find long-only, buy-and-hold mixes that *beat DIS historically* while staying “close enough” on risk.
 
-- Optimization window (as used in the presentation): **2022–2025**
+- Optimization window (as used in the presentation): **2020–2025**
 - Long-only weights, sum to 1.0
 - Grid step (default): `0.1`
 - Minimum per-fund weight (default): `0.1`
@@ -86,7 +86,7 @@ It also plots ROI series for DIS vs selected portfolios.
 
 ---
 
-## Key results (from the presentation)
+## Key results:
 
 DIS proxy metrics (CAF-only, aligned window) include:  
 `cum_return 0.490`, `CAGR 0.066`, `ann_vol 0.099`, `max_drawdown -0.217`, Sharpe `0.697`.
@@ -115,14 +115,8 @@ Download fund unit price CSVs from the HSBC tool and place them in a single dire
 - etc.
 
 ### 3) Run
-Cleaned script version (recommended):
 ```bash
-python fund_analysis_clean.py --input-dir "/path/to/mpf_csvs" --output-dir "./merged"
-```
-
-If you want to keep it exactly as originally written:
-```bash
-python fund_analysis.py
+python fund_analysis.py --input-dir "/path/to/mpf_csvs" --output-dir "./merged"
 ```
 
 ### Outputs
@@ -132,7 +126,7 @@ python fund_analysis.py
 
 ---
 
-## Assumptions and limitations (aka: the fine print nobody reads)
+## Assumptions and limitations
 
 - **Not financial advice.** It's a historical backtest with a lot of assumptions.
 - The DIS proxy is simplified (CAF-only for “30s”). Real DIS allocation depends on exact age and scheme rules.
@@ -140,9 +134,6 @@ python fund_analysis.py
 - Grid-search resolution is coarse (`0.1` step) by design.
 
 ---
-
-## License
-Add whatever license you want. Humans love arguing about this.
 
 ## Screenshots (from `mpf_results.pptx`)
 

@@ -1,6 +1,6 @@
 # HSBC MPF Unit Price Analysis: Can a Custom Portfolio Beat DIS?
 
-This repo is a small research project on **Hong Kong MPF (Mandatory Provident Fund)** options using **HSBC MPF unit price data**.
+This repo is a research project on **Hong Kong MPF (Mandatory Provident Fund)** options using **HSBC MPF unit price data**.
 
 The question is simple (and very human):  
 > If you're in your 30s, should you just accept the default **DIS** glidepath, or can you build a *better* buy-and-hold mix from the available funds?
